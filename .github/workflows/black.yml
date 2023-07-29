@@ -9,6 +9,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: psf/black@stable
         with:
-          options: "--check --exclude migrations/"
+          options: "--check --exclude migrations/ --extend-exclude __init__.py"
           src: "./src/backend"
           version: "23.7.0"
