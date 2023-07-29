@@ -1,3 +1,5 @@
+<a href="https://codeclimate.com/github/Mive667/Education-Victory/maintainability"><img src="https://api.codeclimate.com/v1/badges/3a69d03a52532d2546b3/maintainability" /></a>
+
 ## Table of contents
 
 - [English](#education-victory)
