@@ -6,10 +6,10 @@ from question.models import Solution
 
 
 class User(AbstractUser):
-    avatar = models.URLField(max_length=1024, blank=True,
-                             help_text="URL for avatar")
+    avatar = models.URLField(max_length=1024, blank=True, help_text="URL for avatar")
     ability_id = models.ForeignKey(
-        settings.QUESTION_ABILITY_MODEL, on_delete=models.CASCADE, null=True)
+        settings.QUESTION_ABILITY_MODEL, on_delete=models.CASCADE, null=True
+    )
 
 
 class UserSubmission(models.Model):
@@ -21,8 +21,7 @@ class UserSubmission(models.Model):
     category_id_list = models.JSONField()
     # Representation of the solution_id (Solution.id)
     solution_id = models.BigIntegerField()
-    keypoint = models.JSONField(
-        blank=True, help_text='list of completed keypoint id')
+    keypoint = models.JSONField(blank=True, help_text="list of completed keypoint id")
     # User submission details
     #   Should contain a 'score' key that represent the score of this submission, integer, [0,100]
     details = models.JSONField(blank=True)
