@@ -35,10 +35,10 @@ jobs:
 
   Python-Linting:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, ubuntu-20.04]
     steps:
       - uses: psf/black@stable
         with:
           options: "--check"
-          src: "./src/backend"
+          src: "./src/backend/"
           version: "23.7.0"
