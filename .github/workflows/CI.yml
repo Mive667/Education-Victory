@@ -32,3 +32,12 @@ jobs:
     - name: Run Tests
       run: |
         python ./src/backend/manage.py test
+    
+  Python-Linting:
+    runs-on: [ubuntu-latest, ubuntu-20.04]
+    steps:
+      - uses: psf/black@stable
+        with:
+          options: "--check"
+          src: "./src/backend"
+          version: "23.7.0"
