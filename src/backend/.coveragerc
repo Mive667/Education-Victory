@@ -1,7 +1,6 @@
 # .coveragerc to control coverage.py
 [run]
-# do not measure branch coverage
-# check statement coverage only
+# measure statement and branch coverage
 branch = True
 source = .
 omit = 
