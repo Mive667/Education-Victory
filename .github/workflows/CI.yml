@@ -32,20 +32,9 @@ jobs:
     - name: Run Tests
       run: |
         python ./src/backend/manage.py test
-  
-  test-coverage:
-    needs: build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      max-parallel: 4
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.11]
-    steps:
-      - uses: actions/checkout@v3
 
   Python-Linting:
-    needs: [build, test-coverage]
+    needs: build
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 4
