@@ -42,6 +42,7 @@ jobs:
         os: [ubuntu-latest, ubuntu-20.04]
         python-version: [3.11]
     steps:
+      - uses: actions/checkout@v3
       - uses: psf/black@stable
         with:
           options: "--check"
