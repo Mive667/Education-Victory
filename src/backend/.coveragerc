@@ -2,10 +2,18 @@
 [run]
 # measure statement and branch coverage
 branch = True
+
 source = .
+
 omit = 
     **/migrations/*
     __init__.py
+
+# store relative files path in .coverage
+# make it easier to report in other environments.
+relative_files = True
+
+parallel = True
 
 [report]
 # Regexes for lines to exclude from consideration
