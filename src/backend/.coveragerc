@@ -11,7 +11,7 @@ omit =
 
 # store relative files path in .coverage
 # make it easier to report in other environments.
-relative_files = True
+relative_files = true
 
 parallel = True
 
