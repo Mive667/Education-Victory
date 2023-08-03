@@ -14,8 +14,6 @@ omit =
 # make it easier to report in other environments.
 relative_files = True
 
-parallel = True
-
 [report]
 # Regexes for lines to exclude from consideration
 exclude_also =
