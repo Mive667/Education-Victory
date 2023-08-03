@@ -8,10 +8,11 @@ source = .
 omit = 
     **/migrations/*
     __init__.py
+    manage.py
 
 # store relative files path in .coverage
 # make it easier to report in other environments.
-relative_files = true
+relative_files = True
 
 parallel = True
 
