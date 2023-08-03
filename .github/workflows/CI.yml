@@ -44,54 +44,24 @@ jobs:
     - name: Run Tests
       run: |
         coverage run ./src/backend/manage.py test
-      env:
-        COVERAGE_FILE: ".coverage.${{ matrix.python-version }}"
-        # Alternatively you can run coverage with the --parallel flag or add
-        # `parallel = True` in the coverage config file.
-        # If using pytest-cov, you can also add the `--cov-append` flag
-        # directly or through PYTEST_ADD_OPTS.
-    
-    - name: Store coverage file
-      uses: actions/upload-artifact@v3
+
+    - name: Coverage comment
+      id: coverage_comment
+      uses: py-cov-action/python-coverage-comment-action@v3
       with:
-        name: coverage
-        path: .coverage.${{ matrix.python-version }}
-  
-  coverage:
-    needs: build
-    runs-on: ${{ matrix.os }}
-    strategy:
-      max-parallel: 4
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.11]
-    permissions:
-      pull-requests: write
-      contents: write
-    steps:
-      - uses: actions/checkout@v3
+        GITHUB_TOKEN: ${{ github.token }}
 
-      - uses: actions/download-artifact@v3
-        id: download
-        with:
-          name: 'coverage'
-
-      - name: Coverage comment
-        id: coverage_comment
-        uses: py-cov-action/python-coverage-comment-action@v3
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_COVERAGE_FILES: true
-
-      - name: Store Pull Request comment to be posted
-        uses: actions/upload-artifact@v3
-        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
-        with:
-          name: python-coverage-comment-action
-          path: python-coverage-comment-action.txt
+    - name: Store Pull Request comment to be posted
+      uses: actions/upload-artifact@v3
+      if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
+      with:
+        # If you use a different name, update COMMENT_ARTIFACT_NAME accordingly
+        name: python-coverage-comment-action
+        # If you use a different name, update COMMENT_FILENAME accordingly
+        path: python-coverage-comment-action.txt
 
   Python-Linting:
-    needs: [build, coverage]
+    needs: build
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 4
