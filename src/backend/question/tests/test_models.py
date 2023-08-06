@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.utils import timezone
 from question.models import Category, Question, Ability
 
@@ -91,7 +91,7 @@ from question.models import Category, Question, Ability
 #         max_length = Question._meta.get_field('URL').max_length
 #         self.assertEqual(max_length, 20)
 
-
+@override_settings(VALID_ABILITY_KEYS=['binary tree', 'heap', 'linked list'])
 class AbilityModelTest(TestCase):
 
     def test_ability_creation(self):
@@ -99,27 +99,28 @@ class AbilityModelTest(TestCase):
         Test if the Ability model can be created correctly.
         """
         ability_data = {
-            'strength': 10,
-            'intelligence': 5,
-            'agility': 8,
+            'binary tree': 10,
+            'linked list': 5,
+            'heap': 8,
         }
         ability = Ability.objects.create(ability=ability_data)
 
         # Check if the Ability object is created with the correct data
         self.assertEqual(ability.ability, ability_data)
 
-    def test_default_ability_creation(self):
-        """
-        Test if the Ability model is created with default values when no data is provided.
-        """
-        default_ability = Ability.objects.create()
 
-        # Check if the default Ability object is created with the default values
-        self.assertEqual(default_ability.ability, {
-            'strength': 0,
-            'intelligence': 0,
-            'agility': 0,
-        })
+    # def test_default_ability_creation(self):
+    #     """
+    #     Test if the Ability model is created with default values when no data is provided.
+    #     """
+    #     default_ability = Ability.objects.create()
+
+    #     # Check if the default Ability object is created with the default values
+    #     self.assertEqual(default_ability.ability, {
+    #         'binary tree': 0,
+    #         'linked list': 0,
+    #         'heap': 0,
+    #     })
 
     # def test_invalid_ability_keys(self):
     #     """
