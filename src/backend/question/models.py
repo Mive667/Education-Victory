@@ -68,8 +68,8 @@ class Ability(models.Model):
 
     def save(self, *args, **kwargs):
         # Initialize if not defined
-        if not self.data:
-            self.data = {key: 0 for key in settings.VALID_ABILITY_KEYS}
+        if not self.ability:
+            self.ability = {key: 0 for key in settings.VALID_ABILITY_KEYS}
         self.full_clean()
         super().save(*args, **kwargs)
 
