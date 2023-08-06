@@ -11,7 +11,7 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Question(models.Model):
@@ -32,7 +32,7 @@ class Question(models.Model):
     type = models.CharField(max_length=20, default='default_type', help_text='type of the question')
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Keypoint(models.Model):
@@ -47,7 +47,7 @@ class Keypoint(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
 
 class Ability(models.Model):
@@ -87,7 +87,7 @@ class Solution(models.Model):
         Question, on_delete=models.CASCADE, related_name='solution_question')
     category_id_list = models.ManyToManyField(Category)
     answer = models.JSONField(help_text='detailed solution')
-    keypoint = models.ManyToManyField(Keypoint)
+    # keypoint = models.ManyToManyField(Keypoint)
     resources = models.JSONField(help_text='resources of question')
     ability_id = models.ForeignKey(
         Ability, on_delete=models.CASCADE, null=True)
@@ -101,7 +101,7 @@ class Solution(models.Model):
 class UserKeypointScore(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    keypoint = models.ForeignKey(Keypoint, on_delete=models.CASCADE)
+    # keypoint = models.ForeignKey(Keypoint, on_delete=models.CASCADE)
     score = models.IntegerField(default=0)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
