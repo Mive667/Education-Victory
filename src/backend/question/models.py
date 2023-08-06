@@ -52,7 +52,7 @@ class Keypoint(models.Model):
 
 
 class Ability(models.Model):
-    ability: models.JSONField(default=dict, blank=True)
+    ability = models.JSONField(default=dict, blank=True)
 
     # Sanity check on save
     def clean(self, new_default=0):
