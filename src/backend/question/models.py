@@ -56,13 +56,16 @@ class Ability(models.Model):
 
     # Sanity check on save
     def clean(self, new_default=0):
-        for key in self.ability.keys():
-            if key not in settings.VALID_ABILITY_KEYS:
-                raise Error(f"Invalid key: {key}")
+        # remove all invalid key
+        invalid_keys = [key for key in self.ability.keys()
+                        if key not in settings.VALID_ABILITY_KEYS]
+        for key in invalid_keys:
+            del self.ability[key]
+
         # Set default value to new added keys
         for key in settings.VALID_ABILITY_KEYS:
-            if key not in self.ability.keys():
-                self.ability[key] = 0
+            if key not in self.ability:
+                self.ability[key] = new_default
 
     # Initialize when no value is supported
 

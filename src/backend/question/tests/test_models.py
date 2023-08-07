@@ -109,48 +109,108 @@ class AbilityModelTest(TestCase):
         self.assertEqual(ability.ability, ability_data)
 
 
-    # def test_default_ability_creation(self):
-    #     """
-    #     Test if the Ability model is created with default values when no data is provided.
-    #     """
-    #     default_ability = Ability.objects.create()
+    def test_default_ability_creation(self):
+        """
+        Test if the Ability model is created with default values when no data is provided.
+        """
+        default_ability = Ability.objects.create()
 
-    #     # Check if the default Ability object is created with the default values
-    #     self.assertEqual(default_ability.ability, {
-    #         'binary tree': 0,
-    #         'linked list': 0,
-    #         'heap': 0,
-    #     })
+        # Check if the default Ability object is created with the default values
+        self.assertEqual(default_ability.ability, {
+            'binary tree': 0,
+            'linked list': 0,
+            'heap': 0,
+        })
 
-    # def test_invalid_ability_keys(self):
-    #     """
-    #     Test if the Ability model raises an error when invalid keys are provided.
-    #     """
-    #     invalid_ability_data = {
-    #         'strength': 10,
-    #         'intelligence': 5,
-    #         'invalid_key': 8,
-    #     }
+    def test_invalid_ability_keys(self):
+        """
+        Test if the Ability model raises an error when invalid keys are provided.
+        """
+        invalid_ability_data = {
+            'binary tree': 0,
+            'linked list': 0,
+            'invalid_key': 8,
+        }
 
-    #     with self.assertRaises(Exception) as context:
-    #         Ability.objects.create(ability=invalid_ability_data)
+        with self.assertRaises(Exception) as context:
+            Ability.objects.create(ability=invalid_ability_data)
 
-    #     self.assertIn("Invalid key: invalid_key", str(context.exception))
+        self.assertIn("Invalid key: invalid_key", str(context.exception))
 
-    # def test_add_missing_keys_with_default_value(self):
-    #     """
-    #     Test if the Ability model adds missing keys with default values when not provided.
-    #     """
-    #     ability_data_missing_keys = {
-    #         'strength': 10,
-    #         'intelligence': 5,
-    #     }
+    def test_add_missing_keys_with_default_value(self):
+        """
+        Test if the Ability model adds missing keys with default values when not provided.
+        """
+        ability_data_missing_keys = {
+            'binary tree': 10,
+            'linked list': 5,
+        }
 
-    #     ability = Ability.objects.create(ability=ability_data_missing_keys)
+        ability = Ability.objects.create(ability=ability_data_missing_keys)
 
-    #     # Check if the missing keys are added with default values (0)
-    #     self.assertEqual(ability.ability, {
-    #         'strength': 10,
-    #         'intelligence': 5,
-    #         'agility': 0,
-    #     })
+        # Check if the missing keys are added with default values (0)
+        self.assertEqual(ability.ability, {
+            'binary tree': 10,
+            'linked list': 5,
+            'heap': 0,
+        })
+
+    def test_clean_method(self):
+        """
+        Test the clean method to ensure invalid keys are not allowed and missing keys are added.
+        """
+        ability_data = {
+            'binary tree': 10,
+            'linked list': 5,
+            'heap': 8,
+            'invalid_key': 7,
+        }
+
+        ability = Ability(ability=ability_data)
+        ability.clean()
+
+        # Check that invalid_key is removed and missing keys are added with default values
+        self.assertEqual(ability.ability, {
+            'binary tree': 10,
+            'linked list': 5,
+            'heap': 8,
+        })
+
+    def test_save_method_with_existing_ability(self):
+        """
+        Test the save method when ability is already defined.
+        """
+        ability_data = {
+            'binary tree': 10,
+            'linked list': 5,
+            'heap': 8,
+        }
+
+        ability = Ability.objects.create(ability=ability_data)
+
+        # Update ability with new data
+        updated_ability_data = {
+            'binary tree': 12,
+            'linked list': 6,
+            'heap': 9,
+        }
+        ability.ability = updated_ability_data
+        ability.save()
+
+        # Check if the ability is updated correctly
+        updated_ability = Ability.objects.get(pk=ability.pk)
+        self.assertEqual(updated_ability.ability, updated_ability_data)
+
+    def test_save_method_with_empty_ability(self):
+        """
+        Test the save method when ability is empty.
+        """
+        empty_ability = Ability()
+        empty_ability.save()
+
+        # Check if the ability is initialized with default values
+        self.assertEqual(empty_ability.ability, {
+            'binary tree': 0,
+            'linked list': 0,
+            'heap': 0,
+        })
