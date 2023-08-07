@@ -6,6 +6,9 @@ omit =
     */node_modules/*
     __init__.py
     manage.py
+    ENV.py
+    test*.py
+    */test*/*
 
 branch = True
 

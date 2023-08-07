@@ -1,4 +1,4 @@
-name: Django CI
+name: CI
 
 on:
   push:
@@ -31,8 +31,7 @@ jobs:
         echo ROOT = \'http://127.0.0.1:8000\' >> ./src/backend/ENV.py
     - name: Run Tests
       run: |
-        cd ./src/bkancd
-        coverage run manage.py test
+        coverage run ./src/backend/manage.py test ./src/backend/
       env:
         COVERAGE_FILE: ".coverage.${{ matrix.python-version }}"
     - name: Store coverage file
@@ -40,3 +39,32 @@ jobs:
       with:
         name: coverage
         path: .coverage.${{ matrix.python-version }}
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        id: download
+        with:
+          name: "coverage"
+
+      - name: Coverage comment
+        id: coverage_comment
+        uses: py-cov-action/python-coverage-comment-action@v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_COVERAGE_FILES: true
+
+      - name: Store Pull Request comment to be posted
+        uses: actions/upload-artifact@v3
+        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
+        with:
+          name: python-coverage-comment-action
+          path: python-coverage-comment-action.txt
