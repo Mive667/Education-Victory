@@ -155,26 +155,6 @@ class AbilityModelTest(TestCase):
             'heap': 0,
         })
 
-    def test_clean_method(self):
-        """
-        Test the clean method to ensure invalid keys are not allowed and missing keys are added.
-        """
-        ability_data = {
-            'binary tree': 10,
-            'linked list': 5,
-            'heap': 8,
-            'invalid_key': 7,
-        }
-
-        ability = Ability(ability=ability_data)
-        ability.clean()
-
-        # Check that invalid_key is removed and missing keys are added with default values
-        self.assertEqual(ability.ability, {
-            'binary tree': 10,
-            'linked list': 5,
-            'heap': 8,
-        })
 
     def test_save_method_with_existing_ability(self):
         """

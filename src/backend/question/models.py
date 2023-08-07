@@ -56,11 +56,9 @@ class Ability(models.Model):
 
     # Sanity check on save
     def clean(self, new_default=0):
-        # remove all invalid key
-        invalid_keys = [key for key in self.ability.keys()
-                        if key not in settings.VALID_ABILITY_KEYS]
-        for key in invalid_keys:
-            del self.ability[key]
+        for key in self.ability.keys():
+            if key not in settings.VALID_ABILITY_KEYS:
+                raise Error(f"Invalid key: {key}")
 
         # Set default value to new added keys
         for key in settings.VALID_ABILITY_KEYS:
@@ -99,7 +97,7 @@ class Solution(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name} - {self.question}'
+        return f'{self.name} - {self.question_id.name}'
 
 
 class UserKeypointScore(models.Model):
