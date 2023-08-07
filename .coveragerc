@@ -1,6 +1,6 @@
 # .coveragerc to control coverage.py
 [run]
-source = .
+source = ./src/backend/
 omit = 
     */migrations/*
     */node_modules/*

@@ -30,5 +30,13 @@ jobs:
         echo EMAIL_BACKEND = \'django.core.mail.backends.console.EmailBackend\' >> ./src/backend/ENV.py
         echo ROOT = \'http://127.0.0.1:8000\' >> ./src/backend/ENV.py
     - name: Run Tests
-      working-directory: ./src/backend
-      run: python manage.py test
+      run: |
+        cd ./src/bkancd
+        coverage run manage.py test
+      env:
+        COVERAGE_FILE: ".coverage.${{ matrix.python-version }}"
+    - name: Store coverage file
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage
+        path: .coverage.${{ matrix.python-version }}
