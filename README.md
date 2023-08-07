@@ -12,16 +12,16 @@
 | src/backend/common/apps.py          |        4 |        0 |        0 |        0 |    100% |           |
 | src/backend/common/models.py        |       17 |        0 |        0 |        0 |    100% |           |
 | src/backend/common/serializers.py   |        6 |        0 |        0 |        0 |    100% |           |
-| src/backend/common/views.py         |        9 |        2 |        0 |        0 |     78% |     11-12 |
+| src/backend/common/views.py         |        9 |        2 |        0 |        0 |     78% |     12-13 |
 | src/backend/public/admin.py         |        1 |        0 |        0 |        0 |    100% |           |
 | src/backend/public/apps.py          |        4 |        0 |        0 |        0 |    100% |           |
 | src/backend/public/models.py        |        1 |        0 |        0 |        0 |    100% |           |
-| src/backend/public/views.py         |       16 |        8 |        2 |        0 |     44% |7, 11, 15, 19-22, 26-98 |
+| src/backend/public/views.py         |       16 |        8 |        2 |        0 |     44% |8, 13, 18, 31-34, 39-76 |
 | src/backend/question/admin.py       |       15 |        0 |        0 |        0 |    100% |           |
 | src/backend/question/apps.py        |        4 |        0 |        0 |        0 |    100% |           |
-| src/backend/question/models.py      |       67 |        1 |       12 |        0 |     99% |        51 |
-| src/backend/question/serializers.py |       30 |        3 |        0 |        0 |     90% |31, 34, 37 |
-| src/backend/question/views.py       |       40 |       23 |       10 |        0 |     34% |11-12, 18-23, 29-43, 49-50 |
+| src/backend/question/models.py      |       67 |        1 |       12 |        0 |     99% |        53 |
+| src/backend/question/serializers.py |       30 |        3 |        0 |        0 |     90% |57, 60, 63 |
+| src/backend/question/views.py       |       40 |       23 |       10 |        0 |     34% |17-18, 25-30, 37-51, 58-59 |
 |                           **TOTAL** |  **283** |   **45** |   **24** |    **0** | **81%** |           |
 
 
