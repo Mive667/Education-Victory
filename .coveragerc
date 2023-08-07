@@ -11,6 +11,7 @@ omit =
     */test*/*
 
 branch = True
+relative_files = True
 
 [report]
 # fail if under the threshold
