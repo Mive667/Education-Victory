@@ -2,13 +2,17 @@
 [run]
 source = .
 omit = 
-    **/migrations/*
+    */migrations/*
+    */node_modules/*
     __init__.py
     manage.py
 
 branch = True
 
 [report]
+# fail if under the threshold
+fail_under = 50
+show_missing = True
 exclude_lines =
     pragma: no cover
     def __repr__
